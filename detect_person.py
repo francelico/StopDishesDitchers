@@ -4,6 +4,15 @@ import cv2
 import numpy as np
 import os
 
+def extract_known_faces(folder):
+    images, names = load_images_from_folder(folder)
+    known_face_encodings = []
+    known_face_names = []
+    for i in range(len(names)):
+        known_face_encodings.append(face_recognition.face_encodings(images[i])[0])
+        known_face_names.append(names[i])
+    return known_face_encodings, known_face_names
+
 def load_images_from_folder(folder):
     images = []
     filenames = []
@@ -16,17 +25,13 @@ def load_images_from_folder(folder):
 
 # PART 1: extract the faces
 folder = 'faces'
-images, names = load_images_from_folder(folder)
-known_face_encodings = []
-known_face_names = []
-for i in range(len(names)):
-    known_face_encodings.append(face_recognition.face_encodings(images[i])[0])
-    known_face_names.append(names[i])
+known_face_encodings, known_face_names = extract_known_faces(folder)
 
 # PART2: capture webcam frames
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 
+# PART3: recognise people from video frames
 # Initialize some variables
 face_locations = []
 face_encodings = []
