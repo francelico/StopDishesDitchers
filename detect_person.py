@@ -84,10 +84,11 @@ while True:
 
     # Grab a single frame of video
     ret, frame = video_capture.read()
-
     # Identify faces and display them
-    if process_this_frame: face_locations, face_names = identify_faces(frame, known_face_encodings, known_face_names)
-    display_identified(frame, face_locations, face_names)
+    # added ret check to make more robust.
+    if ret:
+        if process_this_frame: face_locations, face_names = identify_faces(frame, known_face_encodings, known_face_names)
+        display_identified(frame, face_locations, face_names)
 
     process_this_frame = not process_this_frame
 
