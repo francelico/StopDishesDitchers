@@ -7,11 +7,9 @@ import os
 def extract_known_faces(folder):
     images, names = load_images_from_folder(folder)
     known_face_encodings = []
-    known_face_names = []
-    for i in range(len(names)):
-        known_face_encodings.append(face_recognition.face_encodings(images[i])[0])
-        known_face_names.append(names[i])
-    return known_face_encodings, known_face_names
+    for image in images:
+        known_face_encodings.append(face_recognition.face_encodings(image)[0])
+    return known_face_encodings, names
 
 def load_images_from_folder(folder):
     images = []
