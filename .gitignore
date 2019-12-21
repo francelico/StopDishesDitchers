@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#privacy
+faces/
+*.jpg
+*.jpeg
+*.png
