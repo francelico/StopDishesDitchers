@@ -70,32 +70,34 @@ def display_identified(frame, face_locations, face_names):
     # Display the resulting image
     cv2.imshow('Video', frame)
 
-# PART 1: extract the faces
-folder = 'faces'
-known_face_encodings, known_face_names = extract_known_faces(folder)
+if __name__ == "__main__":
 
-# PART2: capture webcam frames
-# Get a reference to webcam #0 (the default one)
-video_capture = cv2.VideoCapture(0)
+    # PART 1: extract the faces
+    folder = 'faces'
+    known_face_encodings, known_face_names = extract_known_faces(folder)
 
-# PART3: recognise people from video frames
-process_this_frame = True
-while True:
+    # PART2: capture webcam frames
+    # Get a reference to webcam #0 (the default one)
+    video_capture = cv2.VideoCapture(0)
 
-    # Grab a single frame of video
-    ret, frame = video_capture.read()
-    # Identify faces and display them
-    # added ret check to make more robust.
-    if ret:
-        if process_this_frame: face_locations, face_names = identify_faces(frame, known_face_encodings, known_face_names)
-        display_identified(frame, face_locations, face_names)
+    # PART3: recognise people from video frames
+    process_this_frame = True
+    while True:
 
-    process_this_frame = not process_this_frame
+        # Grab a single frame of video
+        ret, frame = video_capture.read()
+        # Identify faces and display them
+        # added ret check to make more robust.
+        if ret:
+            if process_this_frame: face_locations, face_names = identify_faces(frame, known_face_encodings, known_face_names)
+            display_identified(frame, face_locations, face_names)
 
-    # Hit 'q' on the keyboard to quit!
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+        process_this_frame = not process_this_frame
 
-# Release handle to the webcam
-video_capture.release()
-cv2.destroyAllWindows()
+        # Hit 'q' on the keyboard to quit!
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    # Release handle to the webcam
+    video_capture.release()
+    cv2.destroyAllWindows()
