@@ -72,18 +72,21 @@ def display_identified(frame, face_locations, face_names):
 
 if __name__ == "__main__":
 
+    # config
+    facecam_id = 0
+
     # PART 1: extract the faces
-    folder = 'faces'
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    folder = script_dir + '/faces'
     known_face_encodings, known_face_names = extract_known_faces(folder)
 
     # PART2: capture webcam frames
     # Get a reference to webcam #0 (the default one)
-    video_capture = cv2.VideoCapture(0)
+    video_capture = cv2.VideoCapture(facecam_id)
 
     # PART3: recognise people from video frames
     process_this_frame = True
     while True:
-
         # Grab a single frame of video
         ret, frame = video_capture.read()
         # Identify faces and display them
